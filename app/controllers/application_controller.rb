@@ -16,5 +16,6 @@ class ApplicationController < ActionController::Base
 
 
   def has_to_authenticate
+    redirect_to root_url, alert: "Usuario no autorizado" if current_user = nil?
   end
 end

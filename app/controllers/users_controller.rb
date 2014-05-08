@@ -10,10 +10,11 @@ class UsersController < ApplicationController
         id = row
       end
       id = id[0].to_i
-      sql_script = "INSERT INTO users (u_id, name, mail, password_digest) VALUES ('#{id}', '#{@user.name}', '#{@user.mail}', '#{@user.password_digest}');"
-      ActiveRecord::Base.connection.execute sql_script
+      sql = "INSERT INTO users (user_id, name, mail, password_digest) VALUES ('#{id}', '#{@user.name}', '#{@user.mail}', '#{@user.password_digest}');"
+      ActiveRecord::Base.connection.execute sql
 
       session[:user_id] = id
+      session[:user_type] = 0
       redirect_to root_url, notice: "El usuario ha sido registrado"
     rescue 
       flash[:notice] = "Error en la forma"
