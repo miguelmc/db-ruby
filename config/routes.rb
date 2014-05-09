@@ -1,8 +1,15 @@
 DbRuby::Application.routes.draw do
+
+  get 'signup_user', to: 'users#new', as: 'signup_user'
+  get 'signup_employee', to: 'employees#new', as: 'signup_employee'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
+
   root to: "static_pages#home"
   resources :incidents do
     resources :attempts
   end
+  resources :sessions
   resources :users
   resources :employees
 

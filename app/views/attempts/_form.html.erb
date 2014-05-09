@@ -1,0 +1,10 @@
+<%= form_for [@incident, @attempt] do |f| %>
+
+  <div class="field">
+    <%= f.label :comentario %><br>
+    <%= f.text_field :comentario %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

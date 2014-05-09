@@ -6,7 +6,11 @@ class IncidentsController < ApplicationController
   # GET /incidents
   # GET /incidents.json
   def index
-    @incidents = Incident.all
+    if session[:user_type] == 0
+      @incidents = Incident.find_by_sql("SELECT * FROM incidents WHERE u_id = #{current_user.user_id} ORDER BY fecha_inicio;")
+    else
+      @incidents = Incident.find_by_sql("SELECT * FROM incidents ORDER BY fecha_inicio;")
+    end
   end
 
   # GET /incidents/1
@@ -38,7 +42,7 @@ class IncidentsController < ApplicationController
       sql = "INSERT INTO incidents (incident_id, u_id, descripcion, tipo, prioridad) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.tipo}', '#{@incident.prioridad}');"
       ActiveRecord::Base.connection.execute sql
 
-      redirect_to root_url, notice: "Gracias, si incidente será revisado"
+      redirect_to root_url, notice: "Gracias, el incidente será revisado"
     rescue 
       flash[:notice] = "Error en la forma"
       render :new
@@ -48,31 +52,35 @@ class IncidentsController < ApplicationController
   # PATCH/PUT /incidents/1
   # PATCH/PUT /incidents/1.json
   def update
-    respond_to do |format|
-      if @incident.update(incident_params)
-        format.html { redirect_to @incident, notice: 'Incident was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @incident.errors, status: :unprocessable_entity }
-      end
+    begin
+      incident_params = params[:incident]
+      sql = "UPDATE incidents SET tipo = '#{incident_params["tipo"]}', descripcion = '#{incident_params["descripcion"]}', prioridad = '#{incident_params["prioridad"]}' WHERE incident_id = #{@incident.incident_id};"
+
+      ActiveRecord::Base.connection.execute sql
+
+      redirect_to incident_url(@incident), notice: "El incidente ha sido modificado con exito."
+    rescue
+      flash[:notice] = "Alguna alteracion no fue correctamente modificada"
+      render :edit
     end
   end
 
   # DELETE /incidents/1
   # DELETE /incidents/1.json
   def destroy
-    @incident.destroy
-    respond_to do |format|
-      format.html { redirect_to incidents_url }
-      format.json { head :no_content }
+    begin
+      sql = "DELETE FROM incidents WHERE incident_id = #{@incident.incident_id};"
+      ActiveRecord::Base.connection.execute sql
+    rescue
+      flash[:notice] = "Something bad happened"
     end
+    redirect_to incidents_path
   end
 
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_incident
-    @incident = Incident.find_by_sql("SELECT * FROM incidentes WHERE incident_id ='#{params[id]}';" )
+    @incident = Incident.find_by_sql("SELECT * FROM incidents WHERE incident_id =#{params[:id]};" )[0]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
