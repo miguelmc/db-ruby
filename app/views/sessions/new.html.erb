@@ -1,0 +1,21 @@
+<%= form_tag sessions_path do %>
+  <div class="form-field">
+    <%= label_tag :mail, "Correo" %><br />
+    <%= text_field_tag :mail, params[:mail] %>
+  </div>
+  <div class="form-field">
+    <%= label_tag :password, "Contraseña" %><br />
+    <%= password_field_tag :password %>
+  </div>
+  <div class="actions"><%= submit_tag "Iniciar sesion" %></div>
+<% end %>
+
+<div class="msg">
+  <p> No tienes cuenta? ¡Registrate! <p> 
+
+  <%= link_to "Para usuarios", signup_user_path %>
+  <%= link_to "Para empleados", signup_employee_path %>
+</div>
+<div class="go-back">
+  <%=link_to "Regresar al incio", root_path %>
+</div>

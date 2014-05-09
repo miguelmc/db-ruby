@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<% if !current_user %>
+  <%= link_to "Iniciar sesión", login_url %>
+<% else %>
+  <%= link_to "Cerrar sesión", logout_url %>
+<% end %>
+
 <%= yield %>
 
 </body>
