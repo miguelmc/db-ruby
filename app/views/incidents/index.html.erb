@@ -6,6 +6,7 @@
       <th>Tipo</th>
       <th>Descripcion</th>
       <th>Prioridad</th>
+      <th>Estado</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,7 +19,8 @@
         <td><%= incident.tipo %></td>
         <td><%= incident.descripcion %></td>
         <td><%= incident.prioridad %></td>
-        <td><%= link_to 'Show', incident %></td>
+        <td><%= incident.estado%></td>
+        <td><%= link_to 'Ver más', incident %></td>
         <td><%= link_to 'Edit', edit_incident_path(incident) %></td>
         <td><%= link_to 'Destroy', incident, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -28,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Incident', new_incident_path %>
+<%= link_to 'Nuevo incidente', new_incident_path %>

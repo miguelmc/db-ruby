@@ -54,7 +54,7 @@ class IncidentsController < ApplicationController
   def update
     begin
       incident_params = params[:incident]
-      sql = "UPDATE incidents SET tipo = '#{incident_params["tipo"]}', descripcion = '#{incident_params["descripcion"]}', prioridad = '#{incident_params["prioridad"]}' WHERE incident_id = #{@incident.incident_id};"
+      sql = "UPDATE incidents SET tipo = '#{incident_params["tipo"]}', descripcion = '#{incident_params["descripcion"]}', prioridad = '#{incident_params["prioridad"]}', estado = 'CERRADO' WHERE incident_id = #{@incident.incident_id};"
 
       ActiveRecord::Base.connection.execute sql
 

@@ -15,5 +15,13 @@
   <%= @incident.prioridad %>
 </p>
 
-<%= link_to 'Edit', edit_incident_path(@incident) %> |
-<%= link_to 'Back', incidents_path %>
+<p>
+  <strong>Estado:</strong>
+  <%= @incident.estado%>
+</p>
+
+<%= link_to 'Ver historial', incident_attempts_path(@incident) %> |
+<% if @incident.estado == 'ABIERTO' %>
+  <%= link_to 'Marcar como terminado', incident_update_path(@incident) %> |
+<% end %>
+<%= link_to 'Atras', incidents_path %>

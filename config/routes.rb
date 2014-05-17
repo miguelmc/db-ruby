@@ -4,6 +4,7 @@ DbRuby::Application.routes.draw do
   get 'signup_employee', to: 'employees#new', as: 'signup_employee'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
+  get 'incident_update/:id', to: 'incidents#update', as: 'incident_update'
 
   root to: "static_pages#home"
   resources :incidents do
