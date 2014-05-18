@@ -1,6 +1,6 @@
 class IncidentsController < ApplicationController
   before_action :has_to_authenticate
-  before_action :set_incident, only: [:show, :edit, :update, :destroy]
+  before_action :set_incident, only: [:show, :edit, :assign, :close, :update, :destroy]
 
 
   # GET /incidents
@@ -16,6 +16,11 @@ class IncidentsController < ApplicationController
   # GET /incidents/1
   # GET /incidents/1.json
   def show
+    if @incident.encargado.nil?
+      @encargado = nil
+    else
+      @encargado = Employee.find_by_sql("SELECT * from employees WHERE employee_id = #{@incident.encargado};")[0]
+    end
   end
 
   # GET /incidents/new
@@ -42,7 +47,7 @@ class IncidentsController < ApplicationController
       sql = "INSERT INTO incidents (incident_id, u_id, descripcion, tipo, prioridad) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.tipo}', '#{@incident.prioridad}');"
       ActiveRecord::Base.connection.execute sql
 
-      redirect_to root_url, notice: "Gracias, el incidente será revisado"
+      redirect_to incidents_url, notice: "Gracias, el incidente será revisado"
     rescue 
       flash[:notice] = "Error en la forma"
       render :new
@@ -51,10 +56,34 @@ class IncidentsController < ApplicationController
 
   # PATCH/PUT /incidents/1
   # PATCH/PUT /incidents/1.json
+  def close 
+    begin
+      sql = "UPDATE incidents SET estado = 'CERRADO' WHERE incident_id = #{@incident.incident_id};"
+
+      ActiveRecord::Base.connection.execute sql
+      redirect_to incident_path(@incident), notice: "El incidente ha sido modificado con exito."
+    rescue
+      flash[:notice] = "Alguna alteracion no fue correctamente modificada"
+      render :edit
+    end
+  end
+
   def update
     begin
-      incident_params = params[:incident]
-      sql = "UPDATE incidents SET tipo = '#{incident_params["tipo"]}', descripcion = '#{incident_params["descripcion"]}', prioridad = '#{incident_params["prioridad"]}', estado = 'CERRADO' WHERE incident_id = #{@incident.incident_id};"
+      sql = "UPDATE incidents SET estado = 'ABIERTO', encargado = NULL WHERE incident_id = #{@incident.incident_id};"
+
+      ActiveRecord::Base.connection.execute sql
+
+      redirect_to incident_attempts_url(@incident), notice: "El incidente ha sido modificado con exito."
+    rescue
+      flash[:notice] = "Alguna alteracion no fue correctamente modificada"
+      render :edit
+    end
+  end
+
+  def assign 
+    begin
+      sql = "UPDATE incidents SET estado = 'OCUPADO', encargado = #{session[:user_id]} WHERE incident_id = #{@incident.incident_id};"
 
       ActiveRecord::Base.connection.execute sql
 

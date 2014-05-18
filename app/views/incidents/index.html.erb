@@ -1,33 +1,37 @@
-<h1>Listing incidents</h1>
+<h1>Listado de incidentes</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Tipo</th>
-      <th>Descripcion</th>
-      <th>Prioridad</th>
-      <th>Estado</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @incidents.each do |incident| %>
+<% if @incidents.size > 0 %>
+  <table>
+    <thead>
       <tr>
-        <td><%= incident.tipo %></td>
-        <td><%= incident.descripcion %></td>
-        <td><%= incident.prioridad %></td>
-        <td><%= incident.estado%></td>
-        <td><%= link_to 'Ver más', incident %></td>
-        <td><%= link_to 'Edit', edit_incident_path(incident) %></td>
-        <td><%= link_to 'Destroy', incident, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Tipo</th>
+        <th>Descripcion</th>
+        <th>Prioridad</th>
+        <th>Estado</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @incidents.each do |incident| %>
+        <tr>
+          <td><%= incident.tipo %></td>
+          <td><%= incident.descripcion %></td>
+          <td><%= incident.prioridad %></td>
+          <td><%= incident.estado %></td>
+          <td><%= link_to 'Ver más', incident %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'Nuevo incidente', new_incident_path %>
+  <br>
+<% else %>
+  No hay incidentes disponibles actualmente. 
+<% end %>
+
+<% if session[:user_type] == 0 %>
+  <%= link_to 'Nuevo incidente', new_incident_path %>
+<% end %>

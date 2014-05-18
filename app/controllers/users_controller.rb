@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
       session[:user_id] = id
       session[:user_type] = 0
-      redirect_to root_url, notice: "El usuario ha sido registrado"
+      redirect_to incidents_url, notice: "El usuario ha sido registrado"
     rescue 
       flash[:notice] = "Error en la forma"
       render :new

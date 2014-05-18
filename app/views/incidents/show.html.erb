@@ -20,8 +20,26 @@
   <%= @incident.estado%>
 </p>
 
+<% if @incident.estado == "CERRADO" %>
+  <strong>Finalizó:</strong>
+  <%= @encargado.name %> <br/><br/>
+<% else %>
+  <p>
+    <strong>Encargado:</strong>
+    <% if @encargado.nil? %>
+      No hay nadie encargado actualmente. 
+      <%= link_to 'Asignar', incident_assign_path(@incident) %>
+    <% else %>
+      <%= @encargado.name %>
+    <% end %>
+  </p>
+<% end %>
+
 <%= link_to 'Ver historial', incident_attempts_path(@incident) %> |
-<% if @incident.estado == 'ABIERTO' %>
-  <%= link_to 'Marcar como terminado', incident_update_path(@incident) %> |
+<% if @incident.estado == 'OCUPADO' %>
+  <%= link_to 'Marcar como terminado', incident_close_path(@incident) %> |
+<% end %>
+<% if @incident.estado != "CERRADO" && session[:user_type] == 1 && @incident.encargado = current_user.employee_id %>
+  <%= link_to 'Terminar intento', new_incident_attempt_path(@incident) %> |
 <% end %>
 <%= link_to 'Atras', incidents_path %>
