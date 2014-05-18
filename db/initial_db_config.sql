@@ -26,7 +26,6 @@ CREATE TABLE incidents(
   u_id int not null,
   encargado int DEFAULT null,
   catalog int DEFAULT null,
-  tipo varchar(255) not null,
   descripcion varchar(1023) not null,
   fecha_inicio date, 
   fecha_final date DEFAULT null,

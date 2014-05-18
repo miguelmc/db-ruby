@@ -43,7 +43,7 @@ class IncidentsController < ApplicationController
       id.each do |row|
         id = row
       end
-      id = id[0].to_i
+      id = id[0].to_i + 1
       sql = "INSERT INTO incidents (incident_id, u_id, descripcion, tipo, prioridad) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.tipo}', '#{@incident.prioridad}');"
       ActiveRecord::Base.connection.execute sql
 

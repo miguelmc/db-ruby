@@ -9,7 +9,7 @@ class EmployeesController < ApplicationController
       id.each do |row|
         id = row
       end
-      id = id[0].to_i
+      id = id[0].to_i + 1
       sql = "INSERT INTO employees (employee_id, name, mail, password_digest) VALUES ('#{id}', '#{@employee.name}', '#{@employee.mail}', '#{@employee.password_digest}');"
       ActiveRecord::Base.connection.execute sql
 
