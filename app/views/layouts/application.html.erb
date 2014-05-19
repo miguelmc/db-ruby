@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<%= link_to "Inicio", root_url %> | 
 <% if !current_user %>
   <%= link_to "Iniciar sesión", login_url %>
 <% else %>

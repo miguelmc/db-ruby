@@ -15,7 +15,7 @@ class EmployeesController < ApplicationController
 
       session[:user_id] = id
       session[:user_type] = 1
-      redirect_to incidents_url, notice: "El empleado ha sido registrado"
+      redirect_to index_employee_path, notice: "El empleado ha sido registrado"
     rescue 
       flash[:notice] = "Error en la forma"
       render :new

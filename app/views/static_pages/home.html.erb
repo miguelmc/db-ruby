@@ -1,3 +1,9 @@
 <h1> Bienvenido al servicio de registro de incidentes del Tecnológico de Monterrey </h1>
 
-<%= link_to "Comenzar", login_url %>
+<% if current_user.nil? %>
+  <%= link_to "Comenzar", login_url %>
+<% elsif session[:user_type] == 0 %>
+  <%= link_to "Comenzar", incidents_url %>
+<% else %>
+  <%= link_to "Comenzar", index_employee_path %>
+<% end %>
