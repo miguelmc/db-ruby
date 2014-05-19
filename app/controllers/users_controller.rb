@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       id.each do |row|
         id = row
       end
-      id = id[0].to_i
+      id = id[0].to_i + 1
       sql = "INSERT INTO users (user_id, name, mail, password_digest) VALUES ('#{id}', '#{@user.name}', '#{@user.mail}', '#{@user.password_digest}');"
       ActiveRecord::Base.connection.execute sql
 

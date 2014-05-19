@@ -2,7 +2,7 @@
 
 <p>
   <strong>Tipo:</strong>
-  <%= @incident.tipo %>
+  <%= "TODO" %>
 </p>
 
 <p>
@@ -28,7 +28,9 @@
     <strong>Encargado:</strong>
     <% if @encargado.nil? %>
       No hay nadie encargado actualmente. 
-      <%= link_to 'Asignar', incident_assign_path(@incident) %>
+      <% if session[:user_type] == 1 %>
+        <%= link_to 'Asignar', incident_assign_path(@incident) %>
+      <% end %>
     <% else %>
       <%= @encargado.name %>
     <% end %>
@@ -36,7 +38,7 @@
 <% end %>
 
 <%= link_to 'Ver historial', incident_attempts_path(@incident) %> |
-<% if @incident.estado == 'OCUPADO' %>
+<% if @incident.estado == 'OCUPADO' && session[:user_type] == 1 %>
   <%= link_to 'Marcar como terminado', incident_close_path(@incident) %> |
 <% end %>
 <% if @incident.estado != "CERRADO" && session[:user_type] == 1 && @incident.encargado = current_user.employee_id %>

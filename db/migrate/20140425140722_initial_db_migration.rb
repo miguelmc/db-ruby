@@ -8,4 +8,12 @@ class InitialDbMigration < ActiveRecord::Migration
       execute(statement)
     end
   end
+
+  def down
+    drop_table :users
+    drop_table :employees
+    drop_table :catalogs
+    drop_table :incidents
+    drop_table :attempts
+  end
 end

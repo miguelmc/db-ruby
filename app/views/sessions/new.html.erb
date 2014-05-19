@@ -1,13 +1,19 @@
-<%= form_tag sessions_path do %>
-  <div class="form-field">
-    <%= label_tag :mail, "Correo" %><br />
-    <%= text_field_tag :mail, params[:mail] %>
-  </div>
-  <div class="form-field">
-    <%= label_tag :password, "Contraseña" %><br />
+<center>
+  <%= form_tag sessions_path, class: "form-horizontal" do %>
+   
+   <h3>Inicia sesión</h3>
+   <div class="form-group"><br />
+    <%= label_tag :mail, "Correo" %>
+      <div class="col-md-4">
+    <%= text_field_tag :mail, params[:mail]%>
+      </div>
+   </div>
+
+  <div class="form-field"><br />
+    <%= label_tag :password, "Contraseña" %>
     <%= password_field_tag :password %>
-  </div>
-  <div class="actions"><%= submit_tag "Iniciar sesion" %></div>
+  </div><br>
+  <div><%= submit_tag "Iniciar sesion", class:"btn btn-default" %></div>
 <% end %>
 
 <div class="msg">
@@ -19,3 +25,5 @@
 <div class="go-back">
   <%=link_to "Regresar al incio", root_path %>
 </div>
+</center>
+

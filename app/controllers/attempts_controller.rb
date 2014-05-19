@@ -7,10 +7,10 @@ class AttemptsController < ApplicationController
     @incident = Incident.find_by_sql("SELECT * FROM incidents where incident_id = #{params[:incident_id]}")[0]
     if session[:user_type] == 1
       #Encontrar todos los attempts hechos por el empleado
-      @attempts = Attempt.find_by_sql("SELECT * FROM attempts WHERE e_id = #{current_user.employee_id} ORDER BY fecha_inicio;")
+      @attempts = Attempt.find_by_sql("SELECT * FROM attempts a WHERE a.e_id = #{current_user.employee_id} ORDER BY fecha_inicio;")
     else
       #Encontrar todos los attempts encontrados en los incidentes que el usuario actual creó.
-      @attempts = Attempt.find_by_sql("SELECT incident_id, u_id, encargado, catalog, tipo, descripcion, a.fecha_inicio, a.fecha_final, estado, prioridad FROM attempts a, incidents i WHERE a.i_id = i.incident_id and i.u_id = #{current_user.user_id} ORDER BY a.fecha_inicio;")
+      @attempts = Attempt.find_by_sql("SELECT incident_id, attempt_id, e_id, u_id, encargado, catalog, comentario, descripcion, a.fecha_inicio, a.fecha_final, estado, prioridad FROM attempts a, incidents i WHERE a.i_id = i.incident_id and i.u_id = #{current_user.user_id} ORDER BY a.fecha_inicio;")
     end
   end
 
@@ -38,7 +38,7 @@ class AttemptsController < ApplicationController
       id.each do |row|
         id = row
       end
-      id = id[0].to_i
+      id = (id[0].to_i) + 1
       sql = "INSERT INTO attempts (attempt_id, e_id, i_id, comentario) VALUES ('#{id}', '#{session[:user_id]}', #{@incident.incident_id}, '#{@attempt.comentario}');"
       ActiveRecord::Base.connection.execute sql
 

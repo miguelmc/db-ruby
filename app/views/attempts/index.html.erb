@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th>Comentario</th>
+        <th>Empleado</th>
         <th></th>
         <th></th>
         <th></th>
@@ -12,8 +13,10 @@
     </thead>
     <tbody>
       <% @attempts.each do |attempt| %>
+        <% @employee = Employee.find_by_sql("SELECT * FROM employees WHERE employee_id = #{attempt.e_id};")[0] %>
         <tr>
           <td><%= attempt.comentario %></td>
+          <td><%= @employee.name %></td>
           <td><%= link_to 'Ver más', incident_attempt_path(@incident, attempt) %></td>
         </tr>
       <% end %>

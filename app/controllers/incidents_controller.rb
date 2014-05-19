@@ -43,8 +43,8 @@ class IncidentsController < ApplicationController
       id.each do |row|
         id = row
       end
-      id = id[0].to_i
-      sql = "INSERT INTO incidents (incident_id, u_id, descripcion, tipo, prioridad) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.tipo}', '#{@incident.prioridad}');"
+      id = id[0].to_i + 1
+      sql = "INSERT INTO incidents (incident_id, u_id, descripcion, prioridad) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.prioridad}');"
       ActiveRecord::Base.connection.execute sql
 
       redirect_to incidents_url, notice: "Gracias, el incidente será revisado"

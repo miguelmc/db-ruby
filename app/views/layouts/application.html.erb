@@ -32,7 +32,16 @@
         <div class="nav-collapse">
           <ul class="nav">
             <li><%= link_to "Incidentes", incidents_path()  %></li>
-            <li><%= link_to 'Desconectar', logout_path() %></li>
+            <li>
+              <% if !current_user %>
+                <%= link_to "Iniciar sesión", login_url %>
+              <% else %>
+                 <%= link_to "Cerrar sesión", logout_url %>
+               </li>
+               <li>
+                 <%= link_to current_user.name %>
+              <% end %>
+            </li>
             <!-- <li><%= link_to "Contact Us" %></li> -->
             <!-- <li><%= link_to "Cart" %></li> -->
           </ul>
