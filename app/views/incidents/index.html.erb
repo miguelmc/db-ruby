@@ -1,7 +1,7 @@
 <h1>Listado de incidentes</h1>
 
 <% if @incidents.size > 0 %>
-  <table>
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Tipo</th>
@@ -21,7 +21,7 @@
           <td><%= incident.descripcion %></td>
           <td><%= incident.prioridad %></td>
           <td><%= incident.estado %></td>
-          <td><%= link_to 'Ver más', incident %></td>
+          <td><%= link_to 'Ver más', incident_path(incident) %></td>
         </tr>
       <% end %>
     </tbody>
