@@ -8,6 +8,7 @@ DbRuby::Application.routes.draw do
   get 'incident_assign/:id', to: 'incidents#assign', as: 'incident_assign'
   get 'incident_update/:id', to: 'incidents#update', as: 'incident_update'
   get 'index_employee', to: 'attempts#index_employee', as: 'index_employee'
+  get 'reports/employee_productivity', to: 'reports#employee_productivity', as: 'reports_employee_productivity'
 
   root to: "static_pages#home"
   resources :incidents do
@@ -16,6 +17,7 @@ DbRuby::Application.routes.draw do
   resources :sessions
   resources :users
   resources :employees
+  resources :reports
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

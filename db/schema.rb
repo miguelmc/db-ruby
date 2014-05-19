@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140425140722) do
     t.integer "u_id",                                          null: false
     t.integer "encargado"
     t.integer "catalog"
+    t.string  "tipo",                                          null: false
     t.string  "descripcion",  limit: 1023,                     null: false
     t.date    "fecha_inicio"
     t.date    "fecha_final"
