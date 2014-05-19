@@ -42,7 +42,7 @@
   <%= link_to 'Marcar como terminado', incident_close_path(@incident) %> |
 <% end %>
 <% if @incident.estado == "OCUPADO" && session[:user_type] == 1 && @incident.encargado = current_user.employee_id %>
-  <% @attempt = Attempt.find_by_sql("SELECT * FROM attempts WHERE comentario = 'temp' and i_id = #{@incident.incident_id}")[0] %>
+  <% @attempt = Attempt.find_by_sql("SELECT * FROM attempts WHERE comentario = '' and i_id = #{@incident.incident_id}")[0] %>
   <%= link_to 'Terminar intento', edit_incident_attempt_path(@incident, @attempt) %> |
 <% end %>
 <%= link_to 'Atras', incidents_path %>
