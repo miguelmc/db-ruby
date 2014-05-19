@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     elsif employee.present? && employee.authenticate(params[:password])
       session[:user_type] = 1
       session[:user_id] = employee.employee_id
-      redirect_to incidents_url, notice: "Has iniciado sesión"
+      redirect_to index_employee_path, notice: "Has iniciado sesión"
     else
       flash.now.alert = "El mail o la clave esta incorrecta"
       render "new"

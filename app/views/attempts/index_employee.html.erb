@@ -1,0 +1,39 @@
+<h1>Intentos</h1>
+
+<% if @attempts.size > 0 %>
+  <table>
+    <thead>
+      <tr>
+        <th>Comentario</th>
+        <th>Empleado</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @attempts.each do |attempt| %>
+        <% @employee = Employee.find_by_sql("SELECT * FROM employees WHERE employee_id = #{attempt.e_id};")[0] %>
+        <% @incident= Incident.find_by_sql("SELECT * FROM incidents WHERE incident_id = #{attempt.i_id};")[0] %>
+        <tr>
+          <td><%= attempt.comentario %></td>
+          <td><%= @employee.name %></td>
+          <td><%= link_to 'Ver más', incident_attempt_path(@incident, attempt) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% else %>
+    No hay intentos que mostrar.
+<% end %>
+<br />
+
+<% if current_user.respond_to?(:employee_id) %>
+  <% if  current_user.employee_id == @incident.encargado %>
+    <%= link_to 'Nuevo registro', new_incident_attempt_path(@incident) %>
+  <% elsif @incident.estado != "CERRADO" %>
+      Para agregar un intento al registro debes de asignarte al incidente primero. <br />
+  <% end %>
+<% end %>
+<%= link_to 'Atras', incident_path(@incident) %>
