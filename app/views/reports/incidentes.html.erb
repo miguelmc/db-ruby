@@ -1,0 +1,187 @@
+<ul class="nav nav-tabs">
+  <li><%= link_to "Empleados", reports_employee_productivity_path() %></li>
+  <li><%= link_to "Usuarios", reports_usuarios_path() %></li>
+  <li class="active"><%= link_to "Incidentes", reports_incidentes_path() %></li>
+</ul>
+
+<legend>Áreas donde se presentan más incidentes.</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th># Problemas por Area</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @areasMasIncidentes.each do |inc| %>
+		<tr>
+	      <td><%= inc.area %></td>
+          <td><%= inc.problemas_area %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+<legend>Meses con mas Incidentes</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Mes</th>
+        <th>Incidentes por Mes</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @mesesConMasIncidentes.each do |inc| %>
+		<tr>
+	      <td><%= inc.mes %></td>
+          <td><%= inc.incidentes_mes %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+ <legend>Dia con mas Incidentes</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Dia</th>
+        <th>Incidentes por Dia</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @diasConMasIncidentes.each do |inc| %>
+		<tr>
+	      <td><%= inc.dia %></td>
+          <td><%= inc.incidentes_dia %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+ <legend>Días con más Incidentes Resueltos</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Dia</th>
+        <th>Incidentes Resueltos por Dia</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @diasConMasResueltos.each do |inc| %>
+		<tr>
+	      <td><%= inc.dia %></td>
+          <td><%= inc.incidentes_dia %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+ <legend>Área donde es más difícil resolver incidentes.</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>Problemas por Area</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @areaMasDificil.each do |inc| %>
+		<tr>
+	      <td><%= inc.area %></td>
+          <td><%= inc.problemas_area %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+ <legend>Incidentes de alta prioridad.</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Descripcion</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @altaPrioridad.each do |inc| %>
+		<tr>
+          <td><%= inc.descripcion %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+ <legend>Incidentes mas Viejos.</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Descripcion</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @incidentesViejos.each do |inc| %>
+		<tr>
+          <td><%= inc.descripcion %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+  <legend>Tiempo promedio en resolver incidentes por áreas.</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Area</th>
+        <th>Tiempo promedio</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @promPorAreas.each do |inc| %>
+		<tr>
+          <td><%= inc.area %></td>
+          <td><%= inc.promedio %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+
+
+

@@ -1,0 +1,71 @@
+<ul class="nav nav-tabs">
+  <li><%= link_to "Empleados", reports_employee_productivity_path() %></li>
+  <li class="active"><%= link_to "Usuarios", reports_usuarios_path() %></li>
+  <li><%= link_to "Incidentes", reports_incidentes_path() %></li>
+</ul>
+
+ <legend>Usuarios</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Mail</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @usuarios.each do |inc| %>
+		<tr>
+          <td><%= inc.name %></td>
+          <td><%= inc.mail %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+
+ <legend>Usuarios que más reportan incidentes.</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th># de Incidentes</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @usuariosMasReportan.each do |inc| %>
+		<tr>
+          <td><%= inc.name %></td>
+          <td><%= inc.num_incidentes %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+ <legend>Usuarios que no han reportado incidentes.</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @noReportan.each do |inc| %>
+		<tr>
+          <td><%= inc.name %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>

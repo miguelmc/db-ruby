@@ -1,5 +1,95 @@
 <ul class="nav nav-tabs">
-  <li class="active"><%= link_to "Productividad de Empleados", reports_employee_productivity_path() %></li>
-  <li><%= link_to "Productividad de Empleados", reports_employee_productivity_path() %></li>
-  <li><%= link_to "Incidentes Pendientes", reports_employee_productivity_path() %></li>
+  <li class="active"><%= link_to "Empleados", reports_employee_productivity_path() %></li>
+  <li><%= link_to "Usuarios", reports_usuarios_path() %></li>
+  <li><%= link_to "Incidentes", reports_incidentes_path() %></li>
 </ul>
+
+<legend>Empleados</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Mail</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @empleados.each do |inc| %>
+		<tr>
+	      <td><%= inc.employee_id %></td>
+          <td><%= inc.name %></td>
+          <td><%= inc.mail %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+<legend>Empleados más Productivos</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Numero de Resueltos</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @incidentsProd.each do |inc| %>
+		<tr>
+	      <td><%= inc.name %></td>
+          <td><%= inc.num_resueltos %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+<br>
+
+<legend>Empleados que no han trabajado en una semana</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @menosProd.each do |inc| %>
+		<tr>
+	      <td><%= inc.name %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>
+
+ <br>
+
+ <legend>Tiempo promedio en resolver incidentes por empleado</legend>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tiempo promedio</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @tiempoProm.each do |inc| %>
+		<tr>
+	      <td><%= inc.name %></td>
+	      <td><%= inc.promedio %></td>
+        </tr>
+	<% end %>
+
+    </tbody>
+ </table>

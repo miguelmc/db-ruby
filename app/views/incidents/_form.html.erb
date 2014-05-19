@@ -12,13 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :descripcion %><br>
+    <%= f.label :descripcion %>
     <%= f.text_field :descripcion %>
   </div>
+  <br>
   <div class="field">
-    <%= f.label :prioridad, "Prioridad (ALTA, BAJA, MEDIA)"%><br>
+    <%= f.label :prioridad, "Prioridad (ALTA, BAJA, MEDIA)"%>
     <%= f.text_field :prioridad %>
   </div>
+  <br>
+  <div class="field">
+    <%= f.label :catalog, "Area"%>
+    <%= f.select :catalog, @catalogList%>
+  </div>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>

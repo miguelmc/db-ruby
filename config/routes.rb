@@ -9,6 +9,8 @@ DbRuby::Application.routes.draw do
   get 'incident_update/:id', to: 'incidents#update', as: 'incident_update'
   get 'index_employee', to: 'attempts#index_employee', as: 'index_employee'
   get 'reports/employee_productivity', to: 'reports#employee_productivity', as: 'reports_employee_productivity'
+  get 'reports/usuarios', to: 'reports#usuarios', as: 'reports_usuarios'
+  get 'reports/incidentes', to: 'reports#incidentes', as: 'reports_incidentes'
   get 'create_attempt/:id', to: 'attempts#create', as: 'create_attempt'
 
   root to: "static_pages#home"

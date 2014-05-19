@@ -26,6 +26,7 @@ class IncidentsController < ApplicationController
   # GET /incidents/new
   def new
     @incident = Incident.new
+    @catalogList = [['Tecnologia/Proyectores',1], ['Plomeria/Tuberias',2], ['Logistica/Bancos', 3], ['Tecnologia/IT',4]]
   end
 
   # GET /incidents/1/edit
@@ -36,7 +37,7 @@ class IncidentsController < ApplicationController
   # POST /incidents.json
   def create
     @incident = Incident.new(incident_params)
-
+    @catalogList = [['Tecnologia/Proyectores',1], ['Plomeria/Tuberias',2], ['Logistica/Bancos', 3], ['Tecnologia/IT',4]]
 
     begin
       id = ActiveRecord::Base.connection.execute("SELECT COUNT(*) FROM incidents;")
@@ -44,7 +45,7 @@ class IncidentsController < ApplicationController
         id = row
       end
       id = id[0].to_i + 1
-      sql = "INSERT INTO incidents (incident_id, u_id, descripcion, prioridad, fecha_inicio) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.prioridad}', #{Time.now.strftime("%Y%m%d").to_i});"
+      sql = "INSERT INTO incidents (incident_id, u_id, descripcion, prioridad, fecha_inicio, catalog) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.prioridad}', #{Time.now.strftime("%Y%m%d").to_i}, '#{@incident.catalog}');"
       ActiveRecord::Base.connection.execute sql
 
       redirect_to incidents_url, notice: "Gracias, el incidente será revisado"
