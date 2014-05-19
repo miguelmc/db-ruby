@@ -44,7 +44,7 @@ class IncidentsController < ApplicationController
         id = row
       end
       id = id[0].to_i + 1
-      sql = "INSERT INTO incidents (incident_id, u_id, descripcion, prioridad) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.prioridad}');"
+      sql = "INSERT INTO incidents (incident_id, u_id, descripcion, prioridad, fecha_inicio) VALUES ('#{id}', '#{session[:user_id]}', '#{@incident.descripcion}', '#{@incident.prioridad}', #{Time.now.strftime("%Y%m%d").to_i});"
       ActiveRecord::Base.connection.execute sql
 
       redirect_to incidents_url, notice: "Gracias, el incidente será revisado"
@@ -58,7 +58,7 @@ class IncidentsController < ApplicationController
   # PATCH/PUT /incidents/1.json
   def close 
     begin
-      sql = "UPDATE incidents SET estado = 'CERRADO' WHERE incident_id = #{@incident.incident_id};"
+      sql = "UPDATE incidents SET estado = 'CERRADO', fecha_final = #{Time.now.strftime("%Y%m%d").to_i} WHERE incident_id = #{@incident.incident_id};"
 
       ActiveRecord::Base.connection.execute sql
       redirect_to incident_path(@incident), notice: "El incidente ha sido modificado con exito."
@@ -87,7 +87,7 @@ class IncidentsController < ApplicationController
 
       ActiveRecord::Base.connection.execute sql
 
-      redirect_to incident_url(@incident), notice: "El incidente ha sido modificado con exito."
+      redirect_to create_attempt_path(@incident), notice: "El incidente ha sido modificado con exito."
     rescue
       flash[:notice] = "Alguna alteracion no fue correctamente modificada"
       render :edit
