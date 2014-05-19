@@ -10,4 +10,20 @@
   <%= @employee.name %>
 </p>
 
+<p>
+  <strong>Fecha de inicio</strong>
+  <%= @attempt.fecha_inicio%>
+</p>
+
+<p>
+  <strong>Fecha final</strong>
+  <%= @attempt.fecha_final %>
+</p>
+
+<p>
+  <strong>Tiempo transcurrido</strong>
+  <%= "#{(@attempt.fecha_final.day - @incident.fecha_inicio.day).to_i} (en dias)" %>
+</p>
+
+
 <%= link_to 'Atras', incident_attempts_path(@incident) %>
