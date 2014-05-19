@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
 ruby '2.1.0'
+
+gem 'twitter-bootstrap-rails'
+
 gem 'rails', '4.0.3'
 
 gem 'bcrypt-ruby'
